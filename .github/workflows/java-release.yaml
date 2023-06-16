@@ -34,9 +34,9 @@ jobs:
           
           pre_release=`echo ${VERSION}|egrep "(alpha|beta|rc|[T|t]est)"|wc -l`
           if [ ${pre_release} == 0 ]; then
-            echo "pubilsh snapshot ${VERSION}"
-            SNAPSHOT_VERSION=${VERSION%%-*}
-            sed -i "s/##VERSION##/${SNAPSHOT_VERSION}-SNAPSHOT/g" pom.xml
+            SNAPSHOT_VERSION=${VERSION%%-*}-SNAPSHOT
+            echo "pubilsh snapshot ${SNAPSHOT_VERSION}"
+            sed -i "s/##VERSION##/${SNAPSHOT_VERSION}/g" pom.xml
             mvn --batch-mode deploy
           else
             echo "publish release ${VERSION}"
